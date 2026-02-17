@@ -290,8 +290,11 @@ async def generate_speech_internal(
             final_audio_cpu = final_audio.cpu()
         else:
             final_audio_cpu = final_audio
-            
-        ta.save(buffer, final_audio_cpu, model.sr, format="wav")
+        
+        # ta.save(buffer, final_audio_cpu, model.sr)
+        audio_np = final_audio_cpu.squeeze().numpy()
+        import soundfile as sf
+        sf.write(buffer, audio_np, model.sr, format="WAV")
         buffer.seek(0)
         
         # Mark as completed

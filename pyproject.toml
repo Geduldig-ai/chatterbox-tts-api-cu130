@@ -5,13 +5,15 @@ description = "REST API for Chatterbox TTS with OpenAI compatibility"
 authors = [{ name = "Travis Van Nimwegen", email = "tts@travis2.com" }]
 readme = "README.md"
 license = { text = "AGPLv3" }
-requires-python = ">=3.11, <3.12"
+requires-python = ">=3.11"
 dependencies = [
   # "chatterbox-tts @ git+https://github.com/resemble-ai/chatterbox.git",
-  "chatterbox-tts @ git+https://github.com/travisvn/chatterbox-multilingual.git@exp",
+  # "chatterbox-tts @ git+https://github.com/travisvn/chatterbox-multilingual.git@exp",
+  "chatterbox-tts @ git+ssh://git@github.com/Geduldig-ai/chatterbox-cu130.git@86bdbee0aa9e0ed9da33ae011b4dfa579e35d180",
   "resemble-perth",
-  "torch>=2.0.0,<2.7.0",
-  "torchaudio>=2.0.0,<2.7.0",
+  "torch==2.10.0",
+  "torchaudio==2.10.0",
+  "torchcodec>=0.10.0",
   "fastapi>=0.104.0",
   "uvicorn[standard]>=0.24.0",
   "pydantic>=2.0.0",
@@ -21,6 +23,7 @@ dependencies = [
   "requests>=2.28.0",
   "sse-starlette>=3.0.2",
   "pydub>=0.25.1",
+  "soundfile>=0.13.1",
 ]
 
 [project.urls]
@@ -68,3 +71,12 @@ markers = [
   "voice: marks tests as voice-related tests",
   "regression: marks tests as regression tests",
 ]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+torchaudio = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
